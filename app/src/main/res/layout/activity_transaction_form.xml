@@ -61,6 +61,11 @@
         android:id="@+id/submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="4dp"
+        android:text="Submit"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
