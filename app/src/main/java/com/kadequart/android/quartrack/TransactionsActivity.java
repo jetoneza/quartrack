@@ -3,8 +3,9 @@ package com.kadequart.android.quartrack;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,12 @@ public class TransactionsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Transactions");
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.transactions_list_view);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         ArrayList<Transaction> transactions = new ArrayList<>();
 
@@ -41,11 +48,8 @@ public class TransactionsActivity extends AppCompatActivity {
         transactions.add(new Transaction("#00000322", 5523.23));
         transactions.add(new Transaction("#00000321", 8171.44));
 
-        TransactionAdapter adapter = new TransactionAdapter(this, transactions);
-
-        ListView listView = (ListView) findViewById(R.id.transactions_list_view);
-
-        listView.setAdapter(adapter);
+        RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
