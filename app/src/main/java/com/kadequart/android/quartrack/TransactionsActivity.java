@@ -3,6 +3,7 @@ package com.kadequart.android.quartrack;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -50,6 +51,9 @@ public class TransactionsActivity extends AppCompatActivity {
 
         RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(divider);
     }
 
     @Override
