@@ -5,19 +5,19 @@ package com.kadequart.android.quartrack;
  */
 
 public class Transaction {
-    private int id;
-    private float amount;
+    private String id;
+    private double amount;
 
-    public Transaction (int mId, float mAmount) {
+    public Transaction (String mId, double mAmount) {
        id = mId;
        amount = mAmount;
     }
 
-    public int getId () {
+    public String getId () {
         return id;
     }
 
-    public float getAmount () {
+    public double getAmount () {
         return amount;
     }
 }
