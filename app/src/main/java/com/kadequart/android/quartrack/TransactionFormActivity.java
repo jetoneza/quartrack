@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class TransactionFormActivity extends AppCompatActivity {
 
-    Spinner mTypeSpinner;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +24,7 @@ public class TransactionFormActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add New Transaction");
 
-        mTypeSpinner = (Spinner) findViewById(R.id.type_spinner);
+        Spinner typeSpinner = (Spinner) findViewById(R.id.type_spinner);
 
         ArrayList<String> types = new ArrayList<>();
 
@@ -37,7 +35,7 @@ public class TransactionFormActivity extends AppCompatActivity {
         types.add("Offering");
 
         ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, types);
-        mTypeSpinner.setAdapter(spinnerAdapter);
+        typeSpinner.setAdapter(spinnerAdapter);
     }
 
     @Override

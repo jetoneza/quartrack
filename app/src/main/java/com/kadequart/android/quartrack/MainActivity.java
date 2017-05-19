@@ -11,16 +11,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton addButton;
-    private TextView seeAllTextView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        addButton = (FloatingActionButton) findViewById(R.id.add_button);
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.add_button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        seeAllTextView = (TextView) findViewById(R.id.text_view_all);
+        TextView seeAllTextView = (TextView) findViewById(R.id.text_view_all);
 
         seeAllTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Not yet implemented.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, TransactionsActivity.class);
+                startActivity(intent);
             }
         });
     }

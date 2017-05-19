@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TransactionFormActivity"></activity>
+        <activity android:name=".TransactionFormActivity" />
+        <activity android:name=".TransactionsActivity"></activity>
     </application>
 
 </manifest>
