@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Transaction> transactions = new ArrayList<>();
 
-        transactions.add(new Transaction("#00000325", 9842.99));
-        transactions.add(new Transaction("#00000325", 9842.99));
-        transactions.add(new Transaction("#00000324", 9209.24));
-        transactions.add(new Transaction("#00000323", 9389.44));
-        transactions.add(new Transaction("#00000322", 5523.23));
+//        transactions.add(new Transaction("#00000325", 9842.99));
+//        transactions.add(new Transaction("#00000325", 9842.99));
+//        transactions.add(new Transaction("#00000324", 9209.24));
+//        transactions.add(new Transaction("#00000323", 9389.44));
+//        transactions.add(new Transaction("#00000322", 5523.23));
 
         RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
         recyclerView.setAdapter(adapter);
