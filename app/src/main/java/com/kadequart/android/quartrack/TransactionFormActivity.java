@@ -1,5 +1,6 @@
 package com.kadequart.android.quartrack;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class TransactionFormActivity extends AppCompatActivity {
+
+    private Realm realm;
 
     private Spinner typeSpinner;
     private EditText amountEditText;
@@ -72,8 +77,18 @@ public class TransactionFormActivity extends AppCompatActivity {
 
         double amount = Double.parseDouble(amountText);
 
-        Toast.makeText(this, amount + "", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, notes, Toast.LENGTH_SHORT).show();
+        realm.beginTransaction();
+
+        Transaction transaction = realm.createObject(Transaction.class);
+        transaction.setId("#00000325");
+        transaction.setAmount(amount);
+
+        realm.commitTransaction();
+
+        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(TransactionFormActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
