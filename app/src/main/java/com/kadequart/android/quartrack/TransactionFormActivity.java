@@ -4,12 +4,21 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class TransactionFormActivity extends AppCompatActivity {
+
+    private Spinner typeSpinner;
+    private EditText amountEditText;
+    private EditText notesEditText;
+    private Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +30,20 @@ public class TransactionFormActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add New Transaction");
 
-        Spinner typeSpinner = (Spinner) findViewById(R.id.type_spinner);
+        initializeViews();
+        initializeListeners();
+    }
 
+    public void initializeViews () {
+        typeSpinner = (Spinner) findViewById(R.id.type_spinner);
+        amountEditText = (EditText) findViewById(R.id.amount_input);
+        notesEditText = (EditText) findViewById(R.id.notes_input);
+        submitButton = (Button) findViewById(R.id.submit_button);
+
+        initializeSpinner();
+    }
+
+    public void initializeSpinner () {
         ArrayList<String> types = new ArrayList<>();
 
         types.add("Salary");
@@ -33,6 +54,26 @@ public class TransactionFormActivity extends AppCompatActivity {
 
         ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, types);
         typeSpinner.setAdapter(spinnerAdapter);
+    }
+
+    public void initializeListeners() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addTransaction();
+            }
+        });
+    }
+
+    public void addTransaction () {
+        // TODO: get spinner value
+        String amountText = amountEditText.getText().toString();
+        String notes = notesEditText.getText().toString();
+
+        double amount = Double.parseDouble(amountText);
+
+        Toast.makeText(this, amount + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, notes, Toast.LENGTH_SHORT).show();
     }
 
     @Override
