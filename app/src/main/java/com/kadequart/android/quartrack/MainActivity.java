@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.transactions_recycler_view);
-        recyclerView.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        ArrayList<Transaction> transactions = new ArrayList<>();
+//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.transactions_recycler_view);
+//        recyclerView.setHasFixedSize(true);
+//
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        ArrayList<Transaction> transactions = new ArrayList<>();
 
 //        transactions.add(new Transaction("#00000325", 9842.99));
 //        transactions.add(new Transaction("#00000325", 9842.99));
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
 //        transactions.add(new Transaction("#00000323", 9389.44));
 //        transactions.add(new Transaction("#00000322", 5523.23));
 
-        RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
-        recyclerView.setAdapter(adapter);
-
-        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+//        RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
+//        recyclerView.setAdapter(adapter);
+//
+//        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+//        recyclerView.addItemDecoration(divider);
     }
 }
