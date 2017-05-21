@@ -90,8 +90,7 @@ public class TransactionFormActivity extends AppCompatActivity {
 
     Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
 
-    Intent intent = new Intent(TransactionFormActivity.this, MainActivity.class);
-    startActivity(intent);
+    onBackPressed();
   }
 
   @Override
