@@ -52,9 +52,9 @@ public class TransactionsActivity extends AppCompatActivity {
             adapter = new TransactionAdapter(transactions);
 
             recyclerView.setAdapter(adapter);
-
-            adapter.notifyDataSetChanged();
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     private List<Transaction> loadTransactions() {
