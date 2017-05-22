@@ -12,14 +12,25 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Override
+    private RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
+
+    private Realm realm;
+
+  private List<Transaction> _transactions = new ArrayList<>();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        realm = Realm.getDefaultInstance();
 
         FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.add_button);
 
@@ -41,24 +52,50 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.transactions_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.transactions_recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Transaction> transactions = new ArrayList<>();
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-//        transactions.add(new Transaction("#00000325", 9842.99));
-//        transactions.add(new Transaction("#00000325", 9842.99));
-//        transactions.add(new Transaction("#00000324", 9209.24));
-//        transactions.add(new Transaction("#00000323", 9389.44));
-//        transactions.add(new Transaction("#00000322", 5523.23));
-
-        RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
-        recyclerView.setAdapter(adapter);
-
-        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+        initializeAdapter();
+        loadTransactions();
     }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    // TODO: Use better implementation.
+    // Load transactions only after creation, deletion, or update success
+    if (adapter == null) {
+      initializeAdapter();
+    }
+
+    loadTransactions();
+  }
+
+  private void initializeAdapter () {
+    _transactions = new ArrayList<>();
+    adapter = new TransactionAdapter(_transactions);
+
+    recyclerView.setAdapter(adapter);
+  }
+
+  private void loadTransactions() {
+    _transactions.clear();
+    List<Transaction> allTransactions = realm.where(Transaction.class).findAll();
+
+    int limit = 5;
+
+    // Only display 5
+    if (allTransactions.size() > limit) {
+      _transactions.addAll(allTransactions.subList(0, limit));
+    } else {
+      _transactions.addAll(allTransactions);
+    }
+
+    adapter.notifyDataSetChanged();
+  }
 }

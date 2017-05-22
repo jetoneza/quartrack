@@ -6,11 +6,22 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
 
 public class TransactionsActivity extends AppCompatActivity {
+
+    private RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
+
+    private Realm realm;
+
+    private List<Transaction> _transactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,38 +33,31 @@ public class TransactionsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Transactions");
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.transactions_list_view);
+        realm = Realm.getDefaultInstance();
+
+        recyclerView = (RecyclerView) findViewById(R.id.transactions_list_view);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Transaction> transactions = new ArrayList<>();
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-//        transactions.add(new Transaction("#00000325", 9842.99));
-//        transactions.add(new Transaction("#00000325", 9842.99));
-//        transactions.add(new Transaction("#00000324", 9209.24));
-//        transactions.add(new Transaction("#00000323", 9389.44));
-//        transactions.add(new Transaction("#00000322", 5523.23));
-//        transactions.add(new Transaction("#00000321", 8171.44));
-//        transactions.add(new Transaction("#00000324", 9209.24));
-//        transactions.add(new Transaction("#00000323", 9389.44));
-//        transactions.add(new Transaction("#00000322", 5523.23));
-//        transactions.add(new Transaction("#00000321", 8171.44));
-//        transactions.add(new Transaction("#00000324", 9209.24));
-//        transactions.add(new Transaction("#00000323", 9389.44));
-//        transactions.add(new Transaction("#00000322", 5523.23));
-//        transactions.add(new Transaction("#00000321", 8171.44));
-//        transactions.add(new Transaction("#00000324", 9209.24));
-//        transactions.add(new Transaction("#00000323", 9389.44));
-//        transactions.add(new Transaction("#00000322", 5523.23));
-//        transactions.add(new Transaction("#00000321", 8171.44));
+        initializeAdapter();
+        loadTransactions();
+    }
 
-        RecyclerView.Adapter adapter = new TransactionAdapter(transactions);
-        recyclerView.setAdapter(adapter);
+    private void initializeAdapter () {
+      _transactions = new ArrayList<>();
+      adapter = new TransactionAdapter(_transactions);
 
-        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+      recyclerView.setAdapter(adapter);
+    }
+
+    private void loadTransactions() {
+      _transactions.clear();
+      _transactions.addAll(realm.where(Transaction.class).findAll());
+
+      adapter.notifyDataSetChanged();
     }
 
     @Override

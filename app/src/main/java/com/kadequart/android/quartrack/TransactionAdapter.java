@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jeetkunedo on 19/05/2017.
  */
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
-    private ArrayList<Transaction> data;
+    private List<Transaction> data;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
@@ -23,7 +23,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
     }
 
-    public TransactionAdapter(ArrayList<Transaction> dataSet) {
+    public TransactionAdapter(List<Transaction> dataSet) {
         data = dataSet;
     }
 
