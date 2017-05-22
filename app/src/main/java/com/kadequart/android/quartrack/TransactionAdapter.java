@@ -8,12 +8,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.realm.RealmList;
+
 /**
  * Created by jeetkunedo on 19/05/2017.
  */
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
-    private List<Transaction> data;
+    private RealmList<Transaction> data;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
@@ -23,17 +25,15 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
     }
 
-    public TransactionAdapter(List<Transaction> dataSet) {
-        data = dataSet;
+    public TransactionAdapter(RealmList<Transaction> data) {
+      this.data = data;
     }
 
     @Override
     public TransactionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.transactions_list_item, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
-
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override

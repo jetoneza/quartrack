@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 
 public class TransactionsActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class TransactionsActivity extends AppCompatActivity {
 
     private Realm realm;
 
-    private List<Transaction> _transactions;
+    private RealmList<Transaction> _transactions = new RealmList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,6 @@ public class TransactionsActivity extends AppCompatActivity {
     }
 
     private void initializeAdapter () {
-      _transactions = new ArrayList<>();
       adapter = new TransactionAdapter(_transactions);
 
       recyclerView.setAdapter(adapter);
