@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class TransactionsActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class TransactionsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private Realm realm;
+
+    private List<Transaction> _transactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,32 +38,26 @@ public class TransactionsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.transactions_list_view);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+        initializeAdapter();
+        loadTransactions();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void initializeAdapter () {
+      _transactions = new ArrayList<>();
+      adapter = new TransactionAdapter(_transactions);
 
-        if (adapter == null) {
-            List<Transaction> transactions = loadTransactions();
-
-            adapter = new TransactionAdapter(transactions);
-
-            recyclerView.setAdapter(adapter);
-        }
-
-        adapter.notifyDataSetChanged();
+      recyclerView.setAdapter(adapter);
     }
 
-    private List<Transaction> loadTransactions() {
-        RealmResults<Transaction> transactions = realm.where(Transaction.class).findAll();
+    private void loadTransactions() {
+      _transactions.clear();
+      _transactions.addAll(realm.where(Transaction.class).findAll());
 
-        return transactions;
+      adapter.notifyDataSetChanged();
     }
 
     @Override

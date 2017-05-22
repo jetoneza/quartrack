@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private Realm realm;
+
+  private List<Transaction> _transactions = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,39 +55,47 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.transactions_recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+        initializeAdapter();
+        loadTransactions();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+  @Override
+  protected void onResume() {
+    super.onResume();
 
-        if (adapter == null) {
-            List<Transaction> transactions = loadTransactions();
-
-            adapter = new TransactionAdapter(transactions);
-
-            recyclerView.setAdapter(adapter);
-        }
-
-        adapter.notifyDataSetChanged();
+    // TODO: Use better implementation.
+    // Load transactions only after creation, deletion, or update success
+    if (adapter == null) {
+      initializeAdapter();
     }
 
-    private List<Transaction> loadTransactions() {
-      RealmResults<Transaction> transactions = realm.where(Transaction.class).findAll();
+    loadTransactions();
+  }
 
-      int limit = 5;
+  private void initializeAdapter () {
+    _transactions = new ArrayList<>();
+    adapter = new TransactionAdapter(_transactions);
 
-      if (transactions.size() > limit) {
-        List<Transaction> subList = transactions.subList(0, limit);
+    recyclerView.setAdapter(adapter);
+  }
 
-        return subList;
-      }
+  private void loadTransactions() {
+    _transactions.clear();
+    List<Transaction> allTransactions = realm.where(Transaction.class).findAll();
 
-      return transactions;
+    int limit = 5;
+
+    // Only display 5
+    if (allTransactions.size() > limit) {
+      _transactions.addAll(allTransactions.subList(0, limit));
+    } else {
+      _transactions.addAll(allTransactions);
     }
+
+    adapter.notifyDataSetChanged();
+  }
 }
