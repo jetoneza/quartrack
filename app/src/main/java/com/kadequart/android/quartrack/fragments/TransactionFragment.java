@@ -1,14 +1,13 @@
 package com.kadequart.android.quartrack.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,47 +36,56 @@ public class TransactionFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_transaction, container, false);
-  }
-
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
+    View view = inflater.inflate(R.layout.fragment_transaction, container, false);
 
     realm = Realm.getDefaultInstance();
 
-    View view = getView();
-
-    FloatingActionButton addButton = (FloatingActionButton) view.findViewById(R.id.add_button);
-
-    addButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), TransactionFormActivity.class);
-        startActivity(intent);
-      }
-    });
-
-    TextView seeAllTextView = (TextView) view.findViewById(R.id.text_view_all);
-
-    seeAllTextView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), TransactionsActivity.class);
-        startActivity(intent);
-      }
-    });
-
-    recyclerView = (RecyclerView) view.findViewById(R.id.transactions_recycler_view);
-    recyclerView.setHasFixedSize(true);
-
-    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+    setupViews(view);
 
     initializeAdapter();
     loadTransactions();
+
+    return view;
+  }
+
+  public void setupViews(View view) {
+    Activity parentActivity = getActivity();
+
+    FloatingActionButton addButton = (FloatingActionButton) view.findViewById(R.id.add_button);
+    TextView seeAllTextView = (TextView) view.findViewById(R.id.text_view_all);
+
+    addButton.setOnClickListener(new ClickListener(parentActivity));
+    seeAllTextView.setOnClickListener(new ClickListener(parentActivity));
+
+    recyclerView = (RecyclerView) view.findViewById(R.id.transactions_recycler_view);
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+  }
+
+  private class ClickListener implements View.OnClickListener {
+    Activity parentActivity;
+
+    ClickListener(Activity parentActivity) {
+      this.parentActivity = parentActivity;
+    }
+
+    @Override
+    public void onClick(View view) {
+      Intent intent = null;
+
+      switch (view.getId()) {
+        case R.id.add_button:
+          intent = new Intent(parentActivity, TransactionFormActivity.class);
+          break;
+
+        case R.id.text_view_all:
+          intent = new Intent(parentActivity, TransactionsActivity.class);
+          break;
+      }
+
+      startActivity(intent);
+    }
   }
 
   @Override
