@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +34,58 @@ public class TransactionFragment extends Fragment {
 
   private RealmList<Transaction> transactions = new RealmList<>();
 
+  private OnTransactionSelectedListener selectedListener;
+
+  private View.OnClickListener onClickListener = new View.OnClickListener() {
+
+    @Override
+    public void onClick(View view) {
+      if (selectedListener != null) {
+        RecyclerView.ViewHolder holder = recyclerView.getChildViewHolder(view);
+
+        Transaction transaction = transactions.get(holder.getAdapterPosition());
+
+        selectedListener.onTransactionSelected(transaction);
+      }
+    }
+  };
+
+  private RecyclerView.OnChildAttachStateChangeListener attachListener = new RecyclerView.OnChildAttachStateChangeListener() {
+
+    @Override
+    public void onChildViewAttachedToWindow(View view) {
+      if (selectedListener != null) {
+        view.setOnClickListener(onClickListener);
+      }
+    }
+
+    @Override
+    public void onChildViewDetachedFromWindow(View view) {
+
+    }
+  };
+
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
+    try {
+      selectedListener = (OnTransactionSelectedListener) activity;
+    } catch (ClassCastException e) {
+      throw new ClassCastException(activity.toString() + " must implement OnTransactionSelectedListener");
+    }
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    realm = Realm.getDefaultInstance();
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_transaction, container, false);
-
-    realm = Realm.getDefaultInstance();
 
     setupViews(view);
 
@@ -61,6 +108,7 @@ public class TransactionFragment extends Fragment {
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+    recyclerView.addOnChildAttachStateChangeListener(attachListener);
   }
 
   private class ClickListener implements View.OnClickListener {
@@ -121,5 +169,9 @@ public class TransactionFragment extends Fragment {
     }
 
     adapter.notifyDataSetChanged();
+  }
+
+  public interface OnTransactionSelectedListener {
+    public void onTransactionSelected(Transaction transaction);
   }
 }
