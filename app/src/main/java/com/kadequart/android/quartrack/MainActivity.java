@@ -1,101 +1,30 @@
 package com.kadequart.android.quartrack;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
+import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.kadequart.android.quartrack.fragments.TransactionFragment;
 
-import io.realm.Realm;
-import io.realm.RealmList;
+public class MainActivity extends AppCompatActivity implements TransactionFragment.OnTransactionSelectedListener {
 
-public class MainActivity extends AppCompatActivity {
+  private TransactionFragment transactionFragment = new TransactionFragment();
 
-  private RecyclerView.Adapter adapter;
-  private RecyclerView recyclerView;
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-  private Realm realm;
+    initializeFragments();
+  }
 
-  private RealmList<Transaction> _transactions = new RealmList<>();
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        realm = Realm.getDefaultInstance();
-
-        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.add_button);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TransactionFormActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        TextView seeAllTextView = (TextView) findViewById(R.id.text_view_all);
-
-        seeAllTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TransactionsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        recyclerView = (RecyclerView) findViewById(R.id.transactions_recycler_view);
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
-        initializeAdapter();
-        loadTransactions();
-    }
+  private void initializeFragments () {
+    getFragmentManager().beginTransaction().add(R.id.transaction_fragment, transactionFragment).commit();
+  }
 
   @Override
-  protected void onResume() {
-    super.onResume();
-
-    // TODO: Use better implementation.
-    // Load transactions only after creation, deletion, or update success
-    if (adapter == null) {
-      initializeAdapter();
-    }
-
-    loadTransactions();
-  }
-
-  private void initializeAdapter () {
-    adapter = new TransactionAdapter(_transactions);
-
-    recyclerView.setAdapter(adapter);
-  }
-
-  private void loadTransactions() {
-    _transactions.clear();
-    List<Transaction> allTransactions = realm.where(Transaction.class).findAll();
-
-    int limit = 5;
-
-    // Only display 5
-    if (allTransactions.size() > limit) {
-      _transactions.addAll(allTransactions.subList(0, limit));
-    } else {
-      _transactions.addAll(allTransactions);
-    }
-
-    adapter.notifyDataSetChanged();
+  public void onTransactionSelected(Transaction transaction) {
+    Log.d("TRANSACTION AMOUNT", transaction.getAmount() + "");
   }
 }
