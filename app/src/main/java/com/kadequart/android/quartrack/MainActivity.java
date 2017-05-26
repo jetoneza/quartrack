@@ -1,15 +1,17 @@
 package com.kadequart.android.quartrack;
 
+import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.kadequart.android.quartrack.fragments.TransactionFragment;
+import com.kadequart.android.quartrack.fragments.TransactionViewFragment;
 
 public class MainActivity extends AppCompatActivity implements TransactionFragment.OnTransactionSelectedListener {
 
   private TransactionFragment transactionFragment = new TransactionFragment();
+  private TransactionViewFragment transactionViewFragment = new TransactionViewFragment();
 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements TransactionFragme
 
   @Override
   public void onTransactionSelected(Transaction transaction) {
-    Log.d("TRANSACTION AMOUNT", transaction.getAmount() + "");
+    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    fragmentTransaction.replace(R.id.transaction_fragment, TransactionViewFragment.newInstance(transaction));
+    fragmentTransaction.addToBackStack(null);
+    fragmentTransaction.commit();
   }
 }
