@@ -80,10 +80,11 @@ public class TransactionFormActivity extends AppCompatActivity {
 
     double amount = Double.parseDouble(amountText);
 
+
     realm.beginTransaction();
 
     Transaction transaction = realm.createObject(Transaction.class);
-    transaction.setId("#00000325");
+    transaction.setId(Transaction.generateNextId(realm));
     transaction.setAmount(amount);
 
     realm.commitTransaction();

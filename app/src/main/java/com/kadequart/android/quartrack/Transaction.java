@@ -1,5 +1,6 @@
 package com.kadequart.android.quartrack;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -8,12 +9,12 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Transaction extends RealmObject {
-    private String id;
+    private int id;
     private double amount;
 
-    public String getId () { return id; }
+    public int getId () { return id; }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -24,4 +25,15 @@ public class Transaction extends RealmObject {
     public void setAmount (double amount) {
         this.amount = amount;
     }
+
+    static int generateNextId (Realm realm) {
+        Number size = realm.where(Transaction.class).max("id");
+
+        if (size != null) {
+            return size.intValue() + 1;
+        }
+
+        return 1;
+    }
+
 }
