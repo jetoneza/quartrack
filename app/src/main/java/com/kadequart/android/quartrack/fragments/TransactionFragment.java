@@ -24,6 +24,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.Sort;
 
 public class TransactionFragment extends Fragment {
 
@@ -157,7 +158,7 @@ public class TransactionFragment extends Fragment {
 
   private void loadTransactions() {
     transactions.clear();
-    List<Transaction> allTransactions = realm.where(Transaction.class).findAll();
+    List<Transaction> allTransactions = realm.where(Transaction.class).findAllSorted("id", Sort.DESCENDING);
 
     int limit = 5;
 

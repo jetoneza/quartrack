@@ -14,6 +14,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.Sort;
 
 public class TransactionsActivity extends AppCompatActivity {
 
@@ -55,7 +56,7 @@ public class TransactionsActivity extends AppCompatActivity {
 
     private void loadTransactions() {
       _transactions.clear();
-      _transactions.addAll(realm.where(Transaction.class).findAll());
+      _transactions.addAll(realm.where(Transaction.class).findAllSorted("id", Sort.DESCENDING));
 
       adapter.notifyDataSetChanged();
     }
