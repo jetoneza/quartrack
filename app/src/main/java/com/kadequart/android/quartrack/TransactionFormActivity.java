@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.kadequart.android.quartrack.utils.RealmUtils;
+
 import java.util.ArrayList;
 
 import io.realm.Realm;
@@ -84,7 +86,7 @@ public class TransactionFormActivity extends AppCompatActivity {
     realm.beginTransaction();
 
     Transaction transaction = realm.createObject(Transaction.class);
-    transaction.setId(Transaction.generateNextId(realm));
+    transaction.setId(RealmUtils.getNextId(realm, Transaction.class));
     transaction.setAmount(amount);
 
     realm.commitTransaction();
