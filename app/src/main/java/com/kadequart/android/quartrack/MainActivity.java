@@ -11,7 +11,6 @@ import com.kadequart.android.quartrack.fragments.TransactionViewFragment;
 public class MainActivity extends AppCompatActivity implements TransactionFragment.OnTransactionSelectedListener {
 
   private TransactionFragment transactionFragment = new TransactionFragment();
-  private TransactionViewFragment transactionViewFragment = new TransactionViewFragment();
 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

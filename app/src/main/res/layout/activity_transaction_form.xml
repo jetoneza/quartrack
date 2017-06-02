@@ -1,71 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="32dp"
-    tools:context="com.kadequart.android.quartrack.TransactionFormActivity">
-
-    <TextView
-        android:id="@+id/type_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textAllCaps="true"
-        android:textColor="@android:color/black" />
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:weightSum="9"
+              tools:context="com.kadequart.android.quartrack.TransactionFormActivity">
 
     <Spinner
         android:id="@+id/type_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/amount_text_view"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Amount"
-        android:textAllCaps="true"
-        android:textColor="@android:color/black" />
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#dfdfdf"/>
 
     <EditText
         android:id="@+id/amount_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@null"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:padding="16dp"/>
 
-    <TextView
-        android:id="@+id/notes_text_view"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Notes"
-        android:textAllCaps="true"
-        android:textColor="@android:color/black" />
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#dfdfdf"/>
 
     <EditText
         android:id="@+id/notes_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:background="@null"
+        android:gravity="top"
         android:ems="10"
-        android:inputType="text|textMultiLine|textLongMessage" />
+        android:inputType="text|textMultiLine|textLongMessage"
+        android:padding="16dp"/>
 
     <Button
         android:id="@+id/submit_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
         android:background="?attr/colorPrimary"
         android:backgroundTint="@color/colorPrimaryDark"
         android:elevation="4dp"
         android:text="Submit"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>

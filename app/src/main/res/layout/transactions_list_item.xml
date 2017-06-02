@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:text="9,842.99"
             android:textAlignment="textEnd"
-            android:textColor="@android:color/holo_green_dark"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>

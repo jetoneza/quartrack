@@ -43,7 +43,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         Transaction transaction = data.get(position);
 
         TextView numberTextView = (TextView) rowView.findViewById(R.id.transaction_number);
-        numberTextView.setText(transaction.getId());
+        numberTextView.setText(transaction.getId() + "");
 
         TextView amountTextView = (TextView) rowView.findViewById(R.id.transaction_amount);
         amountTextView.setText(transaction.getAmount() + "");
