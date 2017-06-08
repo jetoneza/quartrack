@@ -24,7 +24,6 @@
             android:id="@+id/date_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3/13/2017"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black"
             android:textSize="12sp" />

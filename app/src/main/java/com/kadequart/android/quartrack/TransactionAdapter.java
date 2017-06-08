@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kadequart.android.quartrack.utils.RealmUtils;
+
 import java.util.List;
 
 import io.realm.RealmList;
@@ -47,6 +49,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         TextView amountTextView = (TextView) rowView.findViewById(R.id.transaction_amount);
         amountTextView.setText(transaction.getAmount() + "");
+
+        TextView dateTextView = (TextView) rowView.findViewById(R.id.date_text_view);
+        dateTextView.setText(RealmUtils.formatDate(transaction.getCreatedAt()));
     }
 
     @Override

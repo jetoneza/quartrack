@@ -1,5 +1,9 @@
 package com.kadequart.android.quartrack.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import io.realm.Realm;
 
 public class RealmUtils {
@@ -16,5 +20,11 @@ public class RealmUtils {
     }
 
     return 1;
+  }
+
+  public static String formatDate (Date date) {
+    DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+    return formatter.format(date);
   }
 }
