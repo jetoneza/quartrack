@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.kadequart.android.quartrack.R;
 import com.kadequart.android.quartrack.Transaction;
+import com.kadequart.android.quartrack.utils.StringUtils;
 
 public class TransactionViewFragment extends Fragment {
 
@@ -34,6 +35,9 @@ public class TransactionViewFragment extends Fragment {
 
     TextView notesTextView = (TextView) view.findViewById(R.id.text_view_notes);
     notesTextView.setText(transaction.getNotes());
+
+    TextView typeTextView = (TextView) view.findViewById(R.id.text_view_type);
+    typeTextView.setText(StringUtils.capitalize(transaction.getType()));
 
     return view;
   }
