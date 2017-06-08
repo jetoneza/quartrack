@@ -9,34 +9,43 @@ import io.realm.RealmObject;
  */
 
 public class Transaction extends RealmObject {
-    private int id;
-    private double amount;
-    private String notes;
-    private Date createdAt = new Date();
+  private int id;
+  private String type;
+  private double amount;
+  private String notes;
+  private Date createdAt = new Date();
 
-    public int getId () { return id; }
+  public int getId () { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+                            this.id = id;
+                                         }
 
-    public double getAmount () {
-        return amount;
-    }
+  public String getType () {
+    return type;
+  }
 
-    public void setAmount (double amount) {
-        this.amount = amount;
-    }
+  public void setType (String type) {
+    this.type = type;
+  }
 
-    public String getNotes () {
-      return notes;
-    }
+  public double getAmount () {
+                             return amount;
+                                           }
 
-    public void setNotes (String notes) {
-      this.notes = notes;
-    }
+  public void setAmount (double amount) {
+                                        this.amount = amount;
+                                                             }
 
-    public Date getCreatedAt () {
-        return createdAt;
+  public String getNotes () {
+                            return notes;
+                                         }
+
+  public void setNotes (String notes) {
+                                      this.notes = notes;
+                                                         }
+
+  public Date getCreatedAt () {
+                              return createdAt;
     }
 }
