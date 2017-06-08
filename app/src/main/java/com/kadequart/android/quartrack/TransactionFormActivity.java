@@ -79,9 +79,9 @@ public class TransactionFormActivity extends AppCompatActivity {
     // TODO: get spinner value
     String amountText = amountEditText.getText().toString();
     String notes = notesEditText.getText().toString();
+    String type = typeSpinner.getSelectedItem().toString();
 
     double amount = Double.parseDouble(amountText);
-
 
     realm.beginTransaction();
 
@@ -89,6 +89,7 @@ public class TransactionFormActivity extends AppCompatActivity {
     transaction.setId(RealmUtils.getNextId(realm, Transaction.class));
     transaction.setAmount(amount);
     transaction.setNotes(notes);
+    transaction.setType(type.toLowerCase());
 
     realm.commitTransaction();
 
