@@ -9,6 +9,7 @@ import io.realm.RealmObject;
 public class Transaction extends RealmObject {
     private int id;
     private double amount;
+    private String notes;
 
     public int getId () { return id; }
 
@@ -22,5 +23,13 @@ public class Transaction extends RealmObject {
 
     public void setAmount (double amount) {
         this.amount = amount;
+    }
+
+    public String getNotes () {
+      return notes;
+    }
+
+    public void setNotes (String notes) {
+      this.notes = notes;
     }
 }

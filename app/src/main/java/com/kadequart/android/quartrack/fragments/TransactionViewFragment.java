@@ -32,6 +32,9 @@ public class TransactionViewFragment extends Fragment {
     TextView amountTextView = (TextView) view.findViewById(R.id.text_view_amount);
     amountTextView.setText(transaction.getAmount() + "");
 
+    TextView notesTextView = (TextView) view.findViewById(R.id.text_view_notes);
+    notesTextView.setText(transaction.getNotes());
+
     return view;
   }
 }

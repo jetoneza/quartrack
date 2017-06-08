@@ -88,6 +88,7 @@ public class TransactionFormActivity extends AppCompatActivity {
     Transaction transaction = realm.createObject(Transaction.class);
     transaction.setId(RealmUtils.getNextId(realm, Transaction.class));
     transaction.setAmount(amount);
+    transaction.setNotes(notes);
 
     realm.commitTransaction();
 
