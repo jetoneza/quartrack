@@ -13,6 +13,16 @@
         android:text="Transaction Details"/>
 
     <TextView
+        android:id="@+id/text_view_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Salary"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"/>
+
+    <TextView
         android:id="@+id/text_view_transaction_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,9 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textColor="?android:attr/colorPrimaryDark"
-        android:textSize="36sp"
+        android:textSize="40sp"
         tools:text="1.00"/>
 
     <TextView
