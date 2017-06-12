@@ -1,8 +1,11 @@
 package com.kadequart.android.quartrack.utils;
 
+import com.kadequart.android.quartrack.Transaction;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
 
@@ -20,6 +23,18 @@ public class RealmUtils {
     }
 
     return 1;
+  }
+
+  public static double getBalance() {
+    List<Transaction> transactions = Realm.getDefaultInstance().where(Transaction.class).findAll();
+
+    double balance = 0;
+
+    for (Transaction transaction : transactions) {
+      balance += transaction.getAmount();
+    }
+
+    return balance;
   }
 
   public static String formatDate (Date date) {

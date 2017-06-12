@@ -87,6 +87,8 @@ public class TransactionFormActivity extends AppCompatActivity {
 
     realm.beginTransaction();
 
+    // TODO: disable adding of negative amounts if balance is not enough
+
     Transaction transaction = realm.createObject(Transaction.class);
     transaction.setId(RealmUtils.getNextId(realm, Transaction.class));
     transaction.setType(type);

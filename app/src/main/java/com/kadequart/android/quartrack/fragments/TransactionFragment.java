@@ -19,7 +19,10 @@ import com.kadequart.android.quartrack.Transaction;
 import com.kadequart.android.quartrack.TransactionAdapter;
 import com.kadequart.android.quartrack.TransactionFormActivity;
 import com.kadequart.android.quartrack.TransactionsActivity;
+import com.kadequart.android.quartrack.utils.RealmUtils;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import io.realm.Realm;
@@ -36,6 +39,8 @@ public class TransactionFragment extends Fragment {
   private RealmList<Transaction> transactions = new RealmList<>();
 
   private OnTransactionSelectedListener selectedListener;
+
+  private TextView balanceTextView;
 
   private View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -92,6 +97,7 @@ public class TransactionFragment extends Fragment {
 
     initializeAdapter();
     loadTransactions();
+    displayBalance();
 
     return view;
   }
@@ -101,6 +107,8 @@ public class TransactionFragment extends Fragment {
 
     FloatingActionButton addButton = (FloatingActionButton) view.findViewById(R.id.add_button);
     TextView seeAllTextView = (TextView) view.findViewById(R.id.text_view_all);
+
+    balanceTextView = (TextView) view.findViewById(R.id.text_view_balance);
 
     addButton.setOnClickListener(new ClickListener(parentActivity));
     seeAllTextView.setOnClickListener(new ClickListener(parentActivity));
@@ -148,6 +156,7 @@ public class TransactionFragment extends Fragment {
     }
 
     loadTransactions();
+    displayBalance();
   }
 
   private void initializeAdapter () {
@@ -170,6 +179,12 @@ public class TransactionFragment extends Fragment {
     }
 
     adapter.notifyDataSetChanged();
+  }
+
+  private void displayBalance () {
+    NumberFormat numberFormat = new DecimalFormat("#0.00");
+
+    balanceTextView.setText(numberFormat.format(RealmUtils.getBalance()));
   }
 
   public interface OnTransactionSelectedListener {
