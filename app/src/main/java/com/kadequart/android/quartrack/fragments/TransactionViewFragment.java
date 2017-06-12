@@ -1,6 +1,7 @@
 package com.kadequart.android.quartrack.fragments;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,13 @@ public class TransactionViewFragment extends Fragment {
     titleTextView.setText("Transaction #" + transaction.getId() + " Details");
 
     TextView amountTextView = (TextView) view.findViewById(R.id.text_view_amount);
-    amountTextView.setText(transaction.getAmount() + "");
+    double amount = transaction.getAmount();
+
+    amountTextView.setText(amount + "");
+
+    if (amount < 0) {
+      amountTextView.setTextColor(Color.RED);
+    }
 
     TextView notesTextView = (TextView) view.findViewById(R.id.text_view_notes);
     notesTextView.setText(transaction.getNotes());
