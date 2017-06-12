@@ -1,6 +1,7 @@
 package com.kadequart.android.quartrack;
 
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         double amount = transaction.getAmount();
 
         amountTextView.setText(amount + "");
+        amountTextView.setTextColor(ContextCompat.getColor(rowView.getContext(), R.color.colorPrimaryDark));
 
         if (amount < 0) {
           amountTextView.setTextColor(Color.RED);
