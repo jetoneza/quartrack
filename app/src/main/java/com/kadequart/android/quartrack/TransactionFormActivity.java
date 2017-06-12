@@ -1,6 +1,5 @@
 package com.kadequart.android.quartrack;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +54,7 @@ public class TransactionFormActivity extends AppCompatActivity {
   public void initializeSpinner() {
     ArrayList<String> types = new ArrayList<>();
 
+    // TODO: improve this
     types.add("Salary");
     types.add("Payable");
     types.add("Spend");
@@ -79,7 +79,9 @@ public class TransactionFormActivity extends AppCompatActivity {
     // TODO: get spinner value
     String amountText = amountEditText.getText().toString();
     String notes = notesEditText.getText().toString();
+
     String type = typeSpinner.getSelectedItem().toString();
+    type = type.toLowerCase();
 
     double amount = Double.parseDouble(amountText);
 
@@ -87,9 +89,15 @@ public class TransactionFormActivity extends AppCompatActivity {
 
     Transaction transaction = realm.createObject(Transaction.class);
     transaction.setId(RealmUtils.getNextId(realm, Transaction.class));
+    transaction.setType(type);
+
+    // TODO: add constant values
+    if (type.equals("payable") || type.equals("spend") || type.equals("offering")) {
+      amount = amount * -1;
+    }
+
     transaction.setAmount(amount);
     transaction.setNotes(notes);
-    transaction.setType(type.toLowerCase());
 
     realm.commitTransaction();
 
