@@ -7,6 +7,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/text_view_title"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:gravity="center"
@@ -20,32 +21,24 @@
         android:layout_marginStart="16dp"
         android:text="Salary"
         android:textColor="@android:color/black"
-        android:textSize="18sp"/>
-
-    <TextView
-        android:id="@+id/text_view_transaction_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="#000000"
-        android:textColor="@android:color/black"
-        />
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/text_view_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textColor="?android:attr/colorPrimaryDark"
-        android:textSize="40sp"
+        android:textSize="60sp"
         tools:text="1.00"/>
 
     <TextView
         android:id="@+id/text_view_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:text="Notes"/>
 
 </LinearLayout>

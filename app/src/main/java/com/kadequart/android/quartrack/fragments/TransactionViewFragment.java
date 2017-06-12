@@ -27,8 +27,8 @@ public class TransactionViewFragment extends Fragment {
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_transaction_view, container, false);
 
-    TextView numberTextView = (TextView) view.findViewById(R.id.text_view_transaction_number);
-    numberTextView.setText(transaction.getId() + "");
+    TextView titleTextView = (TextView) view.findViewById(R.id.text_view_title);
+    titleTextView.setText("Transaction #" + transaction.getId() + " Details");
 
     TextView amountTextView = (TextView) view.findViewById(R.id.text_view_amount);
     amountTextView.setText(transaction.getAmount() + "");
