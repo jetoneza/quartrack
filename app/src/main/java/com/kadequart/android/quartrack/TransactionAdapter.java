@@ -1,5 +1,6 @@
 package com.kadequart.android.quartrack;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         numberTextView.setText(transaction.getId() + "");
 
         TextView amountTextView = (TextView) rowView.findViewById(R.id.transaction_amount);
-        amountTextView.setText(transaction.getAmount() + "");
+
+        double amount = transaction.getAmount();
+
+        amountTextView.setText(amount + "");
+
+        if (amount < 0) {
+          amountTextView.setTextColor(Color.RED);
+        }
 
         TextView dateTextView = (TextView) rowView.findViewById(R.id.date_text_view);
         dateTextView.setText(RealmUtils.formatDate(transaction.getCreatedAt()));
